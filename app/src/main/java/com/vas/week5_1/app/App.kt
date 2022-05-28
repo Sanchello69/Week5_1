@@ -1,6 +1,7 @@
 package com.vas.week5_1.app
 
 import android.app.Application
+import com.vas.feature_details_screen.di.DetailsDepsStore
 import com.vas.feature_main_screen.di.MainDepsStore
 import com.vas.week5_1.di.AppComponent
 import com.vas.week5_1.di.DaggerAppComponent
@@ -15,5 +16,6 @@ class App : Application(){
         appComponent = DaggerAppComponent.create()
 
         MainDepsStore.deps = appComponent
+        DetailsDepsStore.deps = appComponent
     }
 }

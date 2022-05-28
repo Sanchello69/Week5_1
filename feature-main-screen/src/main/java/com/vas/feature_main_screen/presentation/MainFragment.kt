@@ -13,12 +13,18 @@ import androidx.lifecycle.get
 import com.vas.core.utils.Status
 import com.vas.feature_main_screen.databinding.FragmentMainBinding
 import com.vas.feature_main_screen.di.MainComponentViewModel
+import com.vas.feature_main_screen.navigation.MainNavCommandProvider
+import com.vas.navigation.NavCommand
+import com.vas.navigation.navigate
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: MainViewModelFactory
+
+    @Inject
+    lateinit var mainNavCommandProvider: MainNavCommandProvider
 
     private var binding: FragmentMainBinding? = null
     private var viewModel: MainViewModel? = null
@@ -86,6 +92,12 @@ class MainFragment : Fragment() {
         heroesAdapter?.onClickListener = object : HeroesAdapter.OnHeroClickListener{
             override fun onHeroClick(id: Int) {
                 Log.d("click", "$id")
+                val bundle = Bundle()
+                bundle.putInt("id", id)
+                navigate(NavCommand(
+                    action = mainNavCommandProvider.toDetails.action,
+                    args = bundle)
+                )
             }
         }
     }
