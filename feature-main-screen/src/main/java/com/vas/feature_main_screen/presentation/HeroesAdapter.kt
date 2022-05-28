@@ -44,7 +44,7 @@ class ItemHeroesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     private val iconHero: ImageView = itemView.findViewById(R.id.iconImageView)
     private val nameHero: TextView = itemView.findViewById(R.id.nameTextView)
 
-    fun bind(item: Hero, onBestSellerClickListener: HeroesAdapter.OnHeroClickListener) {
+    fun bind(item: Hero, onHeroClickListener: HeroesAdapter.OnHeroClickListener) {
 
         nameHero.text = item.name
 
@@ -55,7 +55,7 @@ class ItemHeroesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         }
 
         itemView.setOnClickListener {
-            onBestSellerClickListener.onHeroClick(item.name)
+            onHeroClickListener.onHeroClick(item.name)
         }
 
     }
