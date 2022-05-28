@@ -90,10 +90,10 @@ class MainFragment : Fragment() {
         heroesAdapter = HeroesAdapter()
         binding?.heroesRecyclerView?.adapter = heroesAdapter
         heroesAdapter?.onClickListener = object : HeroesAdapter.OnHeroClickListener{
-            override fun onHeroClick(id: Int) {
+            override fun onHeroClick(name: String) {
                 Log.d("click", "$id")
                 val bundle = Bundle()
-                bundle.putInt("id", id)
+                bundle.putString("name", name)
                 navigate(NavCommand(
                     action = mainNavCommandProvider.toDetails.action,
                     args = bundle)

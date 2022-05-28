@@ -24,7 +24,7 @@ class HeroesAdapter: RecyclerView.Adapter<ItemHeroesViewHolder>(){
     var onClickListener: OnHeroClickListener? = null
 
     interface OnHeroClickListener {
-        fun onHeroClick(id: Int)
+        fun onHeroClick(name: String)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHeroesViewHolder =
@@ -56,7 +56,7 @@ class ItemHeroesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         }
 
         itemView.setOnClickListener {
-            onBestSellerClickListener.onHeroClick(item.id)
+            onBestSellerClickListener.onHeroClick(item.name)
         }
 
     }

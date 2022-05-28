@@ -6,8 +6,8 @@ import com.vas.feature_details_screen.domain.repository.DetailsRepository
 
 class DetailsRepositoryImpl(private val networkClient: NetworkClientDetails): DetailsRepository {
 
-    override suspend fun getDetailsResult(id: Int): Hero {
-        val heroApi = networkClient.getHeroesList()[id - 1]
+    override suspend fun getDetailsResult(name: String): Hero {
+        val heroApi = networkClient.getHeroesList().first{it.name==name}
         return Hero(
             id = heroApi.id,
             name = heroApi.name,

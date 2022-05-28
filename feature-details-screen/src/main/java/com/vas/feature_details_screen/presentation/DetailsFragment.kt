@@ -10,10 +10,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import coil.load
+import coil.transform.CircleCropTransformation
+import com.vas.core.utils.Constants
 import com.vas.core.utils.Status
 import com.vas.feature_details_screen.R
 import com.vas.feature_details_screen.databinding.FragmentDetailsBinding
 import com.vas.feature_details_screen.di.DetailsComponentViewModel
+import com.vas.feature_details_screen.domain.model.Hero
 import javax.inject.Inject
 
 class DetailsFragment : Fragment() {
@@ -42,7 +46,6 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewModel()
-        setupUI()
         setupObservers()
     }
 
@@ -52,13 +55,14 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        var id = arguments?.getInt("id")?:1
-        viewModel?.getDetails(id)?.observe(viewLifecycleOwner, Observer {
+        var name = arguments?.getString("name")?:"Lina"
+        viewModel?.getDetails(name)?.observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         Log.d("status", "SUCCESS")
                         Log.d("status", "${it.data}")
+                        setupUI(it.data!!)
                     }
                     Status.ERROR -> {
                         Log.d("status", "ERROR ${it.message}")
@@ -71,8 +75,23 @@ class DetailsFragment : Fragment() {
         })
     }
 
-    private fun setupUI() {
-
+    private fun setupUI(hero: Hero) {
+        binding?.apply {
+            strTextView.text = "${hero.str} + ${hero.strGain}"
+            intTextView.text = "${hero.int} + ${hero.intGain}"
+            agiTextView.text = "${hero.agi} + ${hero.agiGain}"
+            attackTypeTextView.text = "Attack type: ${hero.attackType}"
+            healthTextView.text = "Health: ${hero.health} + ${hero.healthRegen}"
+            manaTextView.text = "Mana: ${hero.mana} + ${hero.manaRegen}"
+            armorTextView.text = "Armor: ${hero.armor}"
+            attackTextView.text = "Attack: ${hero.attackMin} - ${hero.attackMax}"
+            nameTextView.text = "${hero.name}"
+            rolesTextView.text = "Roles: " + hero.roles.joinToString()
+            heroImageView.load(Constants.BASE_URL + hero.urlImg){
+                crossfade(true)
+                placeholder(R.drawable.antimage)
+            }
+        }
     }
 
     private fun setupViewModel() {
