@@ -6,7 +6,7 @@ import com.vas.feature_main_screen.domain.repository.MainRepository
 
 class MainRepositoryImpl(private val networkClient: NetworkClient): MainRepository {
 
-    override suspend fun getMainResult() : List<Hero> = networkClient.getHeroesList().map {
+    override suspend fun getHeroesListResult() : List<Hero> = networkClient.getHeroesList().map {
             Hero(
                 id = it.id,
                 name = it.name,

@@ -58,7 +58,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel?.getMain()?.observe(viewLifecycleOwner, Observer {
+        viewModel?.getHeroes()?.observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
